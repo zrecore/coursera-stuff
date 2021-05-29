@@ -1,0 +1,7 @@
+FROM alpine:latest
+RUN apk add --no-cache bash curl openjdk11 && cd /usr/local && curl -O "https://lift.cs.princeton.edu/java/linux/lift-cli.zip" && unzip lift-cli.zip && rm lift-cli.zip
+ENV JAVA_HOME=/usr/lib/jvm/default-jvm
+ENV PATH="$JAVA_HOME/bin:${PATH}"
+COPY ./hello /usr/src/hello
+WORKDIR /usr/src/hello
+CMD javac HelloGoodbye.java && java HelloGoodbye Simon Nick

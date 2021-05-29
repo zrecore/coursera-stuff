@@ -1,0 +1,49 @@
+version: "3.8"
+
+networks:
+  default:
+    driver: bridge
+    external: false
+services:
+  hello_world:
+    container_name: hello_world
+    restart: always
+    tty: true
+    build:
+      context: .
+      dockerfile: Dockerfile-HelloWorld
+    working_dir: /usr/src/hello
+    volumes:
+      - ./hello:/usr/src/hello
+      - /usr/local
+    networks:
+      - default
+  hello_goodbye:
+    container_name: hello_goodbye
+    restart: always
+    tty: true
+    build:
+      context: .
+      dockerfile: Dockerfile-HelloGoodbye
+    working_dir: /usr/src/hello
+    volumes:
+      - ./hello:/usr/src/hello
+      - /usr/local
+    networks:
+      - default
+  random_word:
+    container_name: random_word
+    restart: always
+    tty: true
+    build:
+      context: .
+      dockerfile: Dockerfile-RandomWord
+    working_dir: /usr/src/hello
+    volumes:
+      - ./hello:/usr/src/hello
+      - ./algs4.jar:/usr/src/algs4.jar
+      - /usr/local
+    ports:
+      - 8000:8000
+    networks:
+      - default
